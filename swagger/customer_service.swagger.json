@@ -1,0 +1,190 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "customer_service.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "CustomerService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/customers": {
+      "get": {
+        "summary": "Maps the ListCustomers method to a GET request on /v1/customers",
+        "operationId": "CustomerService_ListCustomers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/grpc_serviceCustomerListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "CustomerService"
+        ]
+      }
+    },
+    "/v1/customers/{customerId}": {
+      "get": {
+        "summary": "Maps the GetCustomer method to a GET request on /v1/customers/{customer_id}",
+        "operationId": "CustomerService_GetCustomer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/grpc_serviceGetCustomerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "CustomerService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "grpc_serviceCustomer": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstNameEn": {
+          "type": "string"
+        },
+        "lastNameEn": {
+          "type": "string"
+        },
+        "primaryContactNumber": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "grpc_serviceCustomerInformation": {
+      "type": "object",
+      "properties": {
+        "customerId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "firstNameEn": {
+          "type": "string"
+        },
+        "lastNameEn": {
+          "type": "string"
+        },
+        "primaryContactNumber": {
+          "type": "string"
+        },
+        "utilityServiceRequests": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/grpc_serviceUtilityServiceRequest"
+          }
+        }
+      }
+    },
+    "grpc_serviceCustomerListResponse": {
+      "type": "object",
+      "properties": {
+        "customers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/grpc_serviceCustomer"
+          }
+        }
+      }
+    },
+    "grpc_serviceGetCustomerResponse": {
+      "type": "object",
+      "properties": {
+        "customer": {
+          "$ref": "#/definitions/grpc_serviceCustomerInformation"
+        }
+      }
+    },
+    "grpc_serviceUtilityServiceRequest": {
+      "type": "object",
+      "properties": {
+        "utilityRequestId": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "utilityNumber": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "region": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

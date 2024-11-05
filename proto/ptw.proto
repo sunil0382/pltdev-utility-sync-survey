@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package grpc_service.utility;
+
+message PTWInfo{
+  string start_date = 1;
+  string end_date = 2;
+  string slug = 3;
+}

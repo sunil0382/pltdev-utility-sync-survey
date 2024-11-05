@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package grpc_service.utility;
+
+message SurveyGateways{
+  string gateway_type = 1;
+  string gateway_scenario = 2;
+  float cable_length = 3;
+  string room = 4;
+  string connection_type = 5;
+  string model_name = 6;
+  string slug = 7;
+  string floor_code = 8;
+  int64 floor_id = 9;
+  bool power_interruption = 10;
+  float signal_strength = 11;
+  bool antenna = 12;
+  string label = 13;
+
+
+}

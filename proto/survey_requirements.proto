@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package grpc_service.utility;
+
+message SurveyRequirements {
+  string slug = 1;
+  string requirement_key = 2;
+  bool is_electric = 3;
+  bool is_water = 4;
+}

@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package grpc_service.utility;
+
+import "google/api/annotations.proto";
+import "premise_info.proto";
+import "nb_iot_coverage.proto";
+import "survey_requirements.proto";
+import "ptw.proto";
+import "survey_gateways.proto";
+
+option go_package = "us-api/grpc_service/utility_request";
+
+// Service definition
+service UtilityServices {
+    // Maps the ListUtilityRequest method to a GET request on /v1/utility_request
+    rpc ListUtilityServices (ListUtilityRequest) returns (ListUtilityResponse) {
+        option (google.api.http) = {
+            get: "/v1/utility_requests"
+        };
+    }
+
+    rpc FetchUtilityRequest(UtilityServiceRequest) returns (UtilityServiceResponse) {
+        option (google.api.http) = {
+            get: "/v1/utility_requests/{utility_request_slug}"
+        };
+    }
+}
+message UtilityServiceRequest {
+    string utility_number = 1; // Get the Utility Number
+}
+
+// Request message for listing utility services
+message ListUtilityRequest {
+    int32 page = 1;
+    int32 page_size = 2;
+    string utility_number = 3;
+}
+
+// Updated message to avoid naming conflict with service
+message UtilityRequest {
+    string utility_request_slug = 1;
+    string utility_number = 2;
+    int32 account_number = 3;
+    string region = 4;
+    int32 no_electric_meter = 5;
+    int32  no_water_meter = 6;
+    int32 no_of_gateways = 7;
+    string status = 9;
+
+}
+
+// Response message with a list of utility requests
+message ListUtilityResponse {
+    repeated UtilityRequest utility_request = 1;
+    int32 total_count = 2;
+    int32 page = 3;
+    int32 page_size = 4;
+}
+message SurveyDetails {
+    string survey_slug = 1;
+    string surveyor = 2;
+    string comments = 3;
+    string survey_date = 4;
+}
+message EmptyResponse{}
+
+message UtilityServiceResponse {
+   int32 account_number = 1;
+   string utility_number = 2;
+   string status = 3;
+   SurveyDetails survey_details = 4;
+   PremiseInfo premise_info = 5;
+   NBIOTCoverage nb_oit = 6;
+   repeated SurveyRequirements survey_requirements = 7;
+   repeated SurveyGateways survey_gateways = 8;
+   PTWInfo ptw_info = 9;
+
+}

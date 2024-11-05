@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package grpc_service.customer;
+
+import "google/api/annotations.proto";
+
+option go_package = "us-api/grpc_service/customer";
+
+
+service CustomerService {
+    // Maps the ListCustomers method to a GET request on /v1/customers
+    rpc ListCustomers (ListCustomersRequest) returns (CustomerListResponse) {
+        option (google.api.http) = {
+            get: "/v1/customers"
+        };
+    }
+
+    // Maps the GetCustomer method to a GET request on /v1/customers/{customer_id}
+    rpc GetCustomer (GetCustomerRequest) returns (GetCustomerResponse) {
+        option (google.api.http) = {
+            get: "/v1/customers/{customer_id}"
+        };
+    }
+}
+
+message EmptyRequest {}
+
+message ListCustomersRequest {
+    int32 page = 1;  // Page number for pagination
+    int32 page_size = 2;  // Number of customers per page
+}
+
+message GetCustomerRequest {
+    int32 customer_id = 1;
+}
+
+message CustomerInformation {
+    int32 customer_id = 1;
+    string first_name_en = 2;
+    string last_name_en = 3;
+    string primary_contact_number = 4;
+    repeated UtilityServiceRequest utility_service_requests = 5;
+}
+
+message UtilityServiceRequest {
+    int32 utility_request_id = 1;
+    string utility_number = 2;
+    int32 account_number = 3;
+    string region = 4;
+}
+
+message GetCustomerResponse {
+    CustomerInformation customer = 1;
+}
+
+message Customer {
+    int32 customer_id = 1;
+    string first_name_en = 2;
+    string last_name_en = 3;
+    string primary_contact_number = 4;
+    string email = 5;
+}
+
+message CustomerListResponse {
+    repeated Customer customers = 1;
+    int32 total_count = 2;  // Total number of customers
+    int32 page = 3;  // Current page
+    int32 page_size = 4;  // Size of each page
+}

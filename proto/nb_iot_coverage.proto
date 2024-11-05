@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package grpc_service.utility;
+
+message NBIOTCoverage {
+  bool rsrp_within_acceptable_range = 1;
+  bool sinr_within_acceptable_range = 2;
+  bool signal_strength_3g4g_within_range = 3;
+  string slug = 4;
+  string rsrp_value = 5;
+  string sinr_value = 6;
+  string signal_strength_3g4g_value = 7;
+  string serving_site_id = 8;
+  string serving_cell_id = 9;
+}

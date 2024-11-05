@@ -1,0 +1,398 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Utility Sync Survey & Utility API",
+    "version": "v1"
+  },
+  "tags": [
+    {
+      "name": "UtilityServices"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/survey/api/v1/utility_requests": {
+      "get": {
+        "summary": "Maps the ListUtilityRequest method to a GET request on /survey/v1/utility_request",
+        "operationId": "UtilityServices_ListUtilityServices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/utilityListUtilityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "utility_number",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UtilityServices"
+        ]
+      }
+    },
+    "/survey/api/v1/utility_requests/{utility_number}": {
+      "get": {
+        "operationId": "UtilityServices_FetchUtilityRequest",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/utilityUtilityServiceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "utility_number",
+            "description": "Get the Utility Number",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UtilityServices"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "utilityListUtilityResponse": {
+      "type": "object",
+      "properties": {
+        "utilityRequest": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/utilityUtilityRequest"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Response message with a list of utility requests"
+    },
+    "utilityNBIOTCoverage": {
+      "type": "object",
+      "properties": {
+        "rsrpWithinAcceptableRange": {
+          "type": "boolean"
+        },
+        "sinrWithinAcceptableRange": {
+          "type": "boolean"
+        },
+        "signalStrength3g4gWithinRange": {
+          "type": "boolean"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "rsrpValue": {
+          "type": "string"
+        },
+        "sinrValue": {
+          "type": "string"
+        },
+        "signalStrength3g4gValue": {
+          "type": "string"
+        },
+        "servingSiteId": {
+          "type": "string"
+        },
+        "servingCellId": {
+          "type": "string"
+        }
+      }
+    },
+    "utilityPTWInfo": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        }
+      }
+    },
+    "utilityPremiseInfo": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "string"
+        },
+        "longitude": {
+          "type": "string"
+        },
+        "buildingName": {
+          "type": "string"
+        },
+        "buildingNumber": {
+          "type": "string"
+        },
+        "plotNumber": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "district": {
+          "type": "string"
+        },
+        "street": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "plot": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "premiseType": {
+          "type": "string"
+        },
+        "emirate": {
+          "type": "string"
+        }
+      },
+      "title": "Message for premise information"
+    },
+    "utilitySurveyDetails": {
+      "type": "object",
+      "properties": {
+        "surveySlug": {
+          "type": "string"
+        },
+        "surveyor": {
+          "type": "string"
+        },
+        "comments": {
+          "type": "string"
+        },
+        "surveyDate": {
+          "type": "string"
+        }
+      }
+    },
+    "utilitySurveyGateways": {
+      "type": "object",
+      "properties": {
+        "gatewayType": {
+          "type": "string"
+        },
+        "gatewayScenario": {
+          "type": "string"
+        },
+        "cableLength": {
+          "type": "number",
+          "format": "float"
+        },
+        "room": {
+          "type": "string"
+        },
+        "connectionType": {
+          "type": "string"
+        },
+        "modelName": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "floorCode": {
+          "type": "string"
+        },
+        "floorId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "powerInterruption": {
+          "type": "boolean"
+        },
+        "signalStrength": {
+          "type": "number",
+          "format": "float"
+        },
+        "antenna": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "utilitySurveyRequirements": {
+      "type": "object",
+      "properties": {
+        "slug": {
+          "type": "string"
+        },
+        "requirementKey": {
+          "type": "string"
+        },
+        "isElectric": {
+          "type": "boolean"
+        },
+        "isWater": {
+          "type": "boolean"
+        }
+      }
+    },
+    "utilityUtilityRequest": {
+      "type": "object",
+      "properties": {
+        "utilityRequestSlug": {
+          "type": "string"
+        },
+        "utilityNumber": {
+          "type": "string"
+        },
+        "accountNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "region": {
+          "type": "string"
+        },
+        "noElectricMeter": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "noWaterMeter": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "noOfGateways": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "Updated message to avoid naming conflict with service"
+    },
+    "utilityUtilityServiceResponse": {
+      "type": "object",
+      "properties": {
+        "accountNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "utilityNumber": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "surveyDetails": {
+          "$ref": "#/definitions/utilitySurveyDetails"
+        },
+        "premiseInfo": {
+          "$ref": "#/definitions/utilityPremiseInfo"
+        },
+        "nbOit": {
+          "$ref": "#/definitions/utilityNBIOTCoverage"
+        },
+        "surveyRequirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/utilitySurveyRequirements"
+          }
+        },
+        "surveyGateways": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/utilitySurveyGateways"
+          }
+        },
+        "ptwInfo": {
+          "$ref": "#/definitions/utilityPTWInfo"
+        }
+      }
+    }
+  }
+}
